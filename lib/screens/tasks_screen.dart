@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list_app/widgets/tasks_list.dart';
+import 'package:to_do_list_app/screens/add_task_screen.dart';
 
 class TasksScreen extends StatelessWidget {
-  bool isChecked = false;
-
-  TasksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +11,15 @@ class TasksScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(Icons.add),
-        onPressed: (){},
+        onPressed: (){
+          showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (context) => SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: AddTaskScreen())));
+        },
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

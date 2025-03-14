@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  late String addedTask;
+  final void Function(String) addedButtonCallback;
 
-  late String task;
+  AddTaskScreen({required this.addedButtonCallback});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,15 +16,16 @@ class AddTaskScreen extends StatelessWidget {
           Text(
             'Add Task',
             style: TextStyle(
-              fontSize: 40,
+              fontSize: 50,
+              fontWeight: FontWeight.bold,
               color: Colors.lightBlueAccent,
             ),
           ),
           TextField(
             autofocus: true,
             textAlign: TextAlign.center,
-            onChanged: (value) {
-              task = value;
+            onChanged: (newTask) {
+              addedTask = newTask;
             },
             decoration: InputDecoration(
                 hintText: 'Enter here',
@@ -42,7 +46,10 @@ class AddTaskScreen extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: (){},
+              onPressed: () {
+                addedButtonCallback(addedTask);
+                Navigator.pop(context);
+              },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(0)

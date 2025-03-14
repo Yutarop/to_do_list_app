@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list_app/widgets/tasks_list.dart';
 import 'package:to_do_list_app/screens/add_task_screen.dart';
+import 'package:to_do_list_app/models/task.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> taskItems = [
+    Task(name: 'Buy tomato'),
+    Task(name: 'Study quantum mechanics')
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +28,16 @@ class TasksScreen extends StatelessWidget {
               builder: (context) => SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: AddTaskScreen())));
+                  child: AddTaskScreen(
+                    addedButtonCallback: (addedTask) {
+                      setState(() {
+                        taskItems.add(Task(name: addedTask, isDone: false));
+                      });
+                    },
+                  )
+                )
+              )
+          );
         },
       ),
       body: Column(
@@ -50,7 +69,7 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${taskItems.length} Tasks',
                   style: TextStyle(
                    color: Colors.white,
                    fontSize: 30.0,
@@ -70,7 +89,7 @@ class TasksScreen extends StatelessWidget {
               ),
               child: Padding(
               padding: EdgeInsets.only(top: 0, left: 40.0, right: 40.0, bottom: 10.0),
-                child: TasksList(),
+                child: TasksList(tasks: taskItems,),
               ),
             ),
           )

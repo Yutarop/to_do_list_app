@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_list_app/models/task_data.dart';
 
-class AddTaskScreen extends StatelessWidget {
-  late String addedTask;
+class AddTaskScreen extends StatefulWidget {
+  @override
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  // late String addedTask;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +29,7 @@ class AddTaskScreen extends StatelessWidget {
           TextField(
             autofocus: true,
             textAlign: TextAlign.center,
-            onChanged: (newTask) {
-              addedTask = newTask;
-            },
+            controller: _controller,
             decoration: InputDecoration(
                 hintText: 'Enter here',
                 enabledBorder: UnderlineInputBorder(
@@ -46,7 +50,7 @@ class AddTaskScreen extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Provider.of<Data>(context, listen: false).addTask(addedTask);
+                Provider.of<Data>(context, listen: false).addTask(_controller.text);
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_list_app/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
   late String addedTask;
-  final void Function(String) addedButtonCallback;
-
-  AddTaskScreen({required this.addedButtonCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,7 @@ class AddTaskScreen extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                addedButtonCallback(addedTask);
+                Provider.of<Data>(context, listen: false).addTask(addedTask);
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(

@@ -50,7 +50,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Provider.of<Data>(context, listen: false).addTask(_controller.text);
+                if (_controller.text != '') {
+                  Provider.of<Data>(context, listen: false).addTask(_controller.text);
+                }
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(

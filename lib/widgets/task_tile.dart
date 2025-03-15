@@ -15,7 +15,7 @@ class TaskTile extends StatelessWidget {
     return ListTile(
         title: LongPressDraggable(
           feedback: Text(
-            '$taskTitle \n (hold three seconds to delete)',
+            taskTitle,
             style: TextStyle(
               color: Colors.red,
               fontSize: 20,
@@ -35,7 +35,7 @@ class TaskTile extends StatelessWidget {
           },
           onDragEnd: (details) {
             if (dragStartTime != null && DateTime.now().difference(dragStartTime!)
-                >= Duration(seconds: 3)){
+                >= Duration(milliseconds: 500)){
               Provider.of<Data>(context, listen: false).deleteTask(taskTitle);
             }
           },
